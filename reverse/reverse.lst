@@ -1,0 +1,38 @@
+     1                                  extern printf
+     2                                  section .data
+     3 00000000 61626364650A00              txt db "abcde", 10, 0
+     4                                      txt_len equ $ - txt - 2
+     5                                  section .bss
+     6                                  section .text
+     7                                  global main
+     8                                  main:
+     9 00000000 55                          push rbp
+    10 00000001 4889E5                      mov rbp, rsp
+    11 00000004 4831C0                      xor rax, rax
+    12 00000007 48BF-                       mov rdi, txt
+    12 00000009 [0000000000000000] 
+    13 00000011 E8(00000000)                call printf
+    14                                      
+    15 00000016 B905000000                  mov rcx, txt_len
+    16 0000001B 41BC00000000                mov r12, 0
+    17                                  pushloop:
+    18 00000021 418A8424[00000000]          mov al, [txt+r12]
+    19 00000029 49FFC4                      inc r12
+    20 0000002C 50                          push rax
+    21 0000002D E2F2                        loop pushloop
+    22 0000002F B905000000                  mov rcx, txt_len
+    23 00000034 41BC00000000                mov r12, 0
+    24                                  poploop:
+    25 0000003A 58                          pop rax
+    26 0000003B 41888424[00000000]          mov [txt+r12], al
+    27 00000043 49FFC4                      inc r12
+    28 00000046 E2F2                        loop poploop
+    29                                      
+    30 00000048 4831C0                      xor rax, rax
+    31 0000004B 48BF-                       mov rdi, txt
+    31 0000004D [0000000000000000] 
+    32 00000055 E8(00000000)                call printf
+    33                                      
+    34 0000005A 4889EC                      mov rsp, rbp
+    35 0000005D 5D                          pop rbp
+    36 0000005E C3                          ret

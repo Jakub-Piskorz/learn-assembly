@@ -2,6 +2,7 @@ extern printf
 section .data
     txt db "abcde", 10, 0
     txt_len equ $ - txt - 2
+section .bss
 section .text
 global main
 main:

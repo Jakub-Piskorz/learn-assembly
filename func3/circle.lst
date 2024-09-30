@@ -1,0 +1,32 @@
+     1                                  ; circle.asm
+     2                                  extern pi
+     3                                  
+     4                                  section .data
+     5                                  section .bss
+     6                                  section .text
+     7                                  
+     8                                  global c_area
+     9                                  c_area:
+    10                                      section .text
+    11 00000000 55                              push rbp
+    12 00000001 4889E5                          mov rbp, rsp
+    13 00000004 F20F100C25-                         movsd xmm1, qword [pi]
+    13 00000009 [00000000]         
+    14 0000000D F20F59C0                            mulsd xmm0, xmm0
+    15 00000011 F20F59C1                            mulsd xmm0, xmm1
+    16 00000015 4889EC                          mov rsp, rbp
+    17 00000018 5D                              pop rbp
+    18 00000019 C3                              ret
+    19                                          
+    20                                  global c_circum
+    21                                  c_circum:
+    22                                      section .text
+    23 0000001A 55                              push rbp
+    24 0000001B 4889E5                          mov rbp, rsp
+    25 0000001E F20F100C25-                         movsd xmm1, qword [pi]
+    25 00000023 [00000000]         
+    26 00000027 F20F58C9                            addsd xmm1, xmm1
+    27 0000002B F20F59C1                            mulsd xmm0, xmm1
+    28 0000002F 4889EC                          mov rsp, rbp
+    29 00000032 5D                              pop rbp
+    30 00000033 C3                              ret

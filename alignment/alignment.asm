@@ -30,6 +30,7 @@ func1:
 
 global main
 main:
+    mov rbp, rsp; for correct debugging
     push rbp
     call func1
     pop rbp

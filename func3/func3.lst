@@ -1,0 +1,89 @@
+     1                                  ; func3.asm
+     2                                  extern printf
+     3                                  extern c_area
+     4                                  extern c_circum
+     5                                  extern r_area
+     6                                  extern r_circum
+     7                                  section .data
+     8                                      global pi
+     9 00000000 50455254FB210940            pi      dq  3.141592654
+    10 00000008 0000000000002440            radius  dq  10.0
+    11 00000010 0400000000000000            side1   dq  4
+    12 00000018 0500000000000000            side2   dq  5
+    13 00000020 25732025660A00              fmtf    db  "%s %f", 10, 0
+    14 00000027 25732025640A00              fmti    db  "%s %d", 10, 0
+    15 0000002E 436972636C65206172-         ca      db  "Circle area is ", 0
+    15 00000037 65612069732000     
+    16 0000003E 436972636C65206369-         cc      db  "Circle circumference is ", 0
+    16 00000047 7263756D666572656E-
+    16 00000050 63652069732000     
+    17 00000057 41726561206F662074-         ra      db  "Area of the rectangle is ", 0
+    17 00000060 68652072656374616E-
+    17 00000069 676C652069732000   
+    18 00000071 43697263756D666572-         rc      db  "Circumference of the rectangle is ", 0
+    18 0000007A 656E6365206F662074-
+    18 00000083 68652072656374616E-
+    18 0000008C 676C652069732000   
+    19                                  section .text
+    20                                  global main
+    21                                  main:
+    22 00000000 55                          push rbp
+    23 00000001 4889E5                      mov rbp, rsp
+    24                                      
+    25                                      ; CIRCLE
+    26                                      
+    27                                      ; Area
+    28 00000004 F20F100425-                 movsd xmm0, qword [radius]
+    28 00000009 [08000000]         
+    29 0000000D E8(00000000)                call c_area
+    30                                      
+    31 00000012 48BF-                       mov rdi, fmtf
+    31 00000014 [2000000000000000] 
+    32 0000001C 48BE-                       mov rsi, ca
+    32 0000001E [2E00000000000000] 
+    33 00000026 B801000000                  mov rax, 1
+    34 0000002B E8(00000000)                call printf
+    35                                      
+    36                                      ; Circumference
+    37 00000030 F20F100425-                 movsd xmm0, qword [radius]
+    37 00000035 [08000000]         
+    38 00000039 E8(00000000)                call c_circum
+    39                                      
+    40 0000003E 48BF-                       mov rdi, fmtf
+    40 00000040 [2000000000000000] 
+    41 00000048 48BE-                       mov rsi, cc
+    41 0000004A [3E00000000000000] 
+    42 00000052 B801000000                  mov rax, 1
+    43 00000057 E8(00000000)                call printf
+    44                                      
+    45                                      ; RECTANGLE
+    46                                      
+    47                                      ; Area
+    48 0000005C 488B3C25[10000000]          mov rdi, [side1]
+    49 00000064 488B3425[18000000]          mov rsi, [side2]
+    50 0000006C E8(00000000)                call r_area
+    51                                      
+    52 00000071 48BF-                       mov rdi, fmti
+    52 00000073 [2700000000000000] 
+    53 0000007B 48BE-                       mov rsi, ra
+    53 0000007D [5700000000000000] 
+    54 00000085 4889C2                      mov rdx, rax
+    55 00000088 4831C0                      xor rax, rax
+    56 0000008B E8(00000000)                call printf
+    57                                     
+    58                                      ; Circumference
+    59 00000090 488B3C25[10000000]          mov rdi, [side1]
+    60 00000098 488B3425[18000000]          mov rsi, [side2]
+    61 000000A0 E8(00000000)                call r_circum
+    62                                      
+    63 000000A5 48BF-                       mov rdi, fmti
+    63 000000A7 [2700000000000000] 
+    64 000000AF 48BE-                       mov rsi, rc
+    64 000000B1 [7100000000000000] 
+    65 000000B9 4889C2                      mov rdx, rax
+    66 000000BC 4831C0                      xor rax, rax
+    67 000000BF E8(00000000)                call printf
+    68                                      
+    69 000000C4 4889EC                      mov rsp, rbp
+    70 000000C7 5D                          pop rbp
+    71 000000C8 C3                          ret

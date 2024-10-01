@@ -33,7 +33,7 @@ main:
     push sixth
     
     call lfunc
-    ; Print
+
     mov rsp, rbp ; move back stack pointer
     
     mov rdi, fmt

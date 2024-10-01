@@ -1,0 +1,79 @@
+     1                                  ; bits1.asm
+     2                                  extern printf
+     3                                  extern printb
+     4                                  section .data
+     5 00000000 4E756D62657220310A-         msgn1   db  "Number 1", 10, 0
+     5 00000009 00                 
+     6 0000000A 4E756D62657220320A-         msgn2   db  "Number 2", 10, 0
+     6 00000013 00                 
+     7 00000014 584F520A00                  msg1    db  "XOR", 10, 0
+     8 00000019 4F520A00                    msg2    db  "OR", 10, 0
+     9 0000001D 414E440A00                  msg3    db  "AND", 10, 0
+    10 00000022 4E4F54206E756D6265-         msg4    db  "NOT number 1", 10, 0
+    10 0000002B 7220310A00         
+    11 00000030 53484C2032206C6F77-         msg5    db  "SHL 2 lower byte of number 1", 10, 0
+    11 00000039 65722062797465206F-
+    11 00000042 66206E756D62657220-
+    11 0000004B 310A00             
+    12 0000004E 5348522032206C6F77-         msg6    db  "SHR 2 lower byte of number 1", 10, 0
+    12 00000057 65722062797465206F-
+    12 00000060 66206E756D62657220-
+    12 00000069 310A00             
+    13 0000006C 53414C2032206C6F77-         msg7    db  "SAL 2 lower byte of number 1", 10, 0
+    13 00000075 65722062797465206F-
+    13 0000007E 66206E756D62657220-
+    13 00000087 310A00             
+    14 0000008A 5341522032206C6F77-         msg8    db  "SAR 2 lower byte of number 1", 10, 0
+    14 00000093 65722062797465206F-
+    14 0000009C 66206E756D62657220-
+    14 000000A5 310A00             
+    15 000000A8 524F4C2032206C6F77-         msg9    db  "ROL 2 lower byte of number 1", 10, 0
+    15 000000B1 65722062797465206F-
+    15 000000BA 66206E756D62657220-
+    15 000000C3 310A00             
+    16 000000C6 524F4C2032206C6F77-         msg10   db  "ROL 2 lower byte of number 2", 10, 0
+    16 000000CF 65722062797465206F-
+    16 000000D8 66206E756D62657220-
+    16 000000E1 320A00             
+    17 000000E4 524F522032206C6F77-         msg11   db  "ROR 2 lower byte of number 1", 10, 0
+    17 000000ED 65722062797465206F-
+    17 000000F6 66206E756D62657220-
+    17 000000FF 310A00             
+    18 00000102 524F522032206C6F77-         msg12   db  "ROR 2 lower byte of number 2", 10, 0
+    18 0000010B 65722062797465206F-
+    18 00000114 66206E756D62657220-
+    18 0000011D 320A00             
+    19 00000120 B8FFFFFFFFFFFFFF            num1    dq  -72
+    20 00000128 2804000000000000            num2    dq  1064
+    21                                  section .bss
+    22                                  section .text
+    23                                      global main
+    24                                  main:
+    25 00000000 55                          push rbp
+    26 00000001 4889E5                      mov rbp, rsp
+    27                                      ; print number1
+    28 00000004 48BE-                       mov rsi, msgn1
+    28 00000006 [0000000000000000] 
+    29 0000000E E82E000000                  call printmsg
+    30 00000013 488B3C25[20010000]          mov rdi, [num1]
+    31 0000001B E8(00000000)                call printb
+    32                                      ; print number2
+    33 00000020 48BE-                       mov rsi, msgn2
+    33 00000022 [0A00000000000000] 
+    34 0000002A E812000000                  call printmsg
+    35 0000002F 488B3C25[28010000]          mov rdi, [num2]
+    36 00000037 E8(00000000)                call printb
+    37                                      
+    38 0000003C 4889EC                      mov rsp, rbp
+    39 0000003F 5D                          pop rbp
+    40 00000040 C3                          ret
+    41                                      
+    42                                  printmsg:
+    43                                  section .data
+    44 00000130 257300                      .fmtstr db  "%s", 0
+    45                                  section .text
+    46 00000041 48BF-                       mov rdi, .fmtstr
+    46 00000043 [3001000000000000] 
+    47 0000004B B800000000                  mov rax, 0
+    48 00000050 E8(00000000)                call printf
+    49 00000055 C3                          ret

@@ -48,15 +48,15 @@ lfunc:
 push rbp
 mov rbp, rsp
     xor rax, rax
-    mov al, sil
+    mov al, byte[rsi]
     mov [rdi], al
-    mov al, dl
+    mov al, byte[rdx]
     mov [rdi+1], al
-    mov al, cl
+    mov al, byte[rcx]
     mov [rdi+2], al
-    mov al, r8b
+    mov al, byte[r8]
     mov [rdi+3], al
-    mov al, r9b
+    mov al, byte[r9]
     mov [rdi+4], al
     ; now fetch args from stack
     push rbx
@@ -68,13 +68,13 @@ mov rbp, rsp
     mov rax, qword [rbp+24]
     mov bl, byte[rax]
     mov [rdi+6], bl
-    mov rax, qword [rbp+24]
-    mov bl, byte[rax]
-    mov [rdi+7], bl
     mov rax, qword [rbp+32]
     mov bl, byte[rax]
-    mov [rdi+8], bl
+    mov [rdi+7], bl
     mov rax, qword [rbp+40]
+    mov bl, byte[rax]
+    mov [rdi+8], bl
+    mov rax, qword [rbp+48]
     mov bl, byte[rax]
     mov [rdi+9], bl
     mov bl, 0

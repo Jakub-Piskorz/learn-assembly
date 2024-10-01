@@ -12,7 +12,7 @@ section .data
     eighth  db  "H", 0
     ninth   db  "I", 0
     tenth   db  "J", 0
-    fmt1    db  "Array is: %s %s %s %s %s %s", 10, 0
+    fmt1    db  "Array is: %s %s %s %s %s | %s %s %s %s %s", 10, 0
     fmt2    db  "PI = %f", 10, 0
     pi      dq  3.14
 section .bss
@@ -29,14 +29,17 @@ main:
     mov r8, fourth
     mov r9, fifth
     
+    push rbp
+    
     push tenth
     push ninth
     push eighth
     push seventh
     push sixth
-    mov rax, 0
+
+    xor rax, rax
     call printf
-    and rsp, 0xfffffffffffffff0
+    add rsp, 8*6
       
     movsd xmm0, [pi]
     mov rax, 1

@@ -29,7 +29,7 @@ main:
     mov r8, fourth
     mov r9, fifth
     
-    push rbp
+    sub rsp, 8 ; Preparing stack to be iteration of 16
     
     push tenth
     push ninth
@@ -39,7 +39,7 @@ main:
 
     xor rax, rax
     call printf
-    add rsp, 8*6
+    add rsp, 8*6 ; Quick restoration of stack pointer after printf
       
     movsd xmm0, [pi]
     mov rax, 1

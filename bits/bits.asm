@@ -38,7 +38,7 @@ main:
     call printb
     
     ; print XOR
-    mov rsi, msg3
+    mov rsi, msg1
     call printmsg
     mov rax, [num1]
     xor rax, [num2]
@@ -46,7 +46,7 @@ main:
     call printb
     
     ; print OR
-    mov rsi, msg4
+    mov rsi, msg2
     call printmsg
     mov rax, [num1]
     or rax, [num2]
@@ -54,7 +54,7 @@ main:
     call printb
     
     ; print AND
-    mov rsi, msg5
+    mov rsi, msg3
     call printmsg
     mov rax, [num1]
     and rax, [num2]
@@ -62,7 +62,7 @@ main:
     call printb
     
     ; print NOT
-    mov rsi, msg6
+    mov rsi, msg4
     call printmsg
     mov rax, [num1]
     not rax
@@ -70,7 +70,7 @@ main:
     call printb
     
     ; print SHL (shift left)
-    mov rsi, msg7
+    mov rsi, msg5
     call printmsg
     mov rax, [num1]
     shl al, 2
@@ -78,10 +78,26 @@ main:
     call printb
     
     ; print SHR (shift right)
-    mov rsi, msg8
+    mov rsi, msg6
     call printmsg
     mov rax, [num1]
     shr al, 2
+    mov rdi, rax
+    call printb
+    
+    ; print SAL (shift arithmetic left)
+    mov rsi, msg7
+    call printmsg
+    mov rax, [num1]
+    sal al, 2
+    mov rdi, rax
+    call printb
+    
+    ; print SAR (shift arithmetic right)
+    mov rsi, msg8
+    call printmsg
+    mov rax, [num1]
+    sar al, 2
     mov rdi, rax
     call printb
     
@@ -92,7 +108,7 @@ main:
     rol al, 2
     mov rdi, rax
     call printb
-    mov rsi, msg9
+    mov rsi, msg10
     call printmsg
     mov rax, [num2]
     rol al, 2
@@ -100,13 +116,13 @@ main:
     call printb
     
     ; print ROR (rotate right)
-    mov rsi, msg10
+    mov rsi, msg11
     call printmsg
     mov rax, [num1]
     ror al, 2
     mov rdi, rax
     call printb
-    mov rsi, msg9
+    mov rsi, msg12
     call printmsg
     mov rax, [num2]
     ror al, 2

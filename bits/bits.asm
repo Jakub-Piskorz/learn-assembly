@@ -43,7 +43,10 @@ printmsg:
 section .data
     .fmtstr db  "%s", 0
 section .text
+    push rbp
+    mov rbp, rsp
     mov rdi, .fmtstr
     mov rax, 0
     call printf
+    leave
     ret

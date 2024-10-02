@@ -99,8 +99,8 @@ main:
     mov rdi, rax
     call printb
     
-    ; print ROL (rotate left)
-    mov rsi, msg9
+    ; print ROR (rotate right)
+    mov rsi, msg10
     call printmsg
     mov rax, [num1]
     ror al, 2

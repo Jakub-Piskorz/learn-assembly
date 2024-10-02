@@ -24,19 +24,96 @@ section .text
 main:
     push rbp
     mov rbp, rsp
+    
     ; print number1
     mov rsi, msgn1
     call printmsg
     mov rdi, [num1]
     call printb
+    
     ; print number2
     mov rsi, msgn2
     call printmsg
     mov rdi, [num2]
     call printb
     
-    mov rsp, rbp
-    pop rbp
+    ; print XOR
+    mov rsi, msg3
+    call printmsg
+    mov rax, [num1]
+    xor rax, [num2]
+    mov rdi, rax
+    call printb
+    
+    ; print OR
+    mov rsi, msg4
+    call printmsg
+    mov rax, [num1]
+    or rax, [num2]
+    mov rdi, rax
+    call printb
+    
+    ; print AND
+    mov rsi, msg5
+    call printmsg
+    mov rax, [num1]
+    and rax, [num2]
+    mov rdi, rax
+    call printb
+    
+    ; print NOT
+    mov rsi, msg6
+    call printmsg
+    mov rax, [num1]
+    not rax
+    mov rdi, rax
+    call printb
+    
+    ; print SHL (shift left)
+    mov rsi, msg7
+    call printmsg
+    mov rax, [num1]
+    shl al, 2
+    mov rdi, rax
+    call printb
+    
+    ; print SHR (shift right)
+    mov rsi, msg8
+    call printmsg
+    mov rax, [num1]
+    shr al, 2
+    mov rdi, rax
+    call printb
+    
+    ; print ROL (rotate left)
+    mov rsi, msg9
+    call printmsg
+    mov rax, [num1]
+    rol al, 2
+    mov rdi, rax
+    call printb
+    mov rsi, msg9
+    call printmsg
+    mov rax, [num2]
+    rol al, 2
+    mov rdi, rax
+    call printb
+    
+    ; print ROL (rotate left)
+    mov rsi, msg9
+    call printmsg
+    mov rax, [num1]
+    ror al, 2
+    mov rdi, rax
+    call printb
+    mov rsi, msg9
+    call printmsg
+    mov rax, [num2]
+    ror al, 2
+    mov rdi, rax
+    call printb
+    
+    leave
     ret
     
 printmsg:

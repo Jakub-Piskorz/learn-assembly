@@ -69,7 +69,7 @@ mov rbp, rsp
     .readc:
         mov rax, 0      ; read
         mov rdi, 1      ; stdin
-        lea rsi, [.inputchar]
+        mov rsi, .inputchar
         mov rdx, 1      ; # of characters to read
         syscall
         mov al, [.inputchar]    ; Char is NL?

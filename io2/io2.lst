@@ -79,27 +79,28 @@
     69                                      .readc:
     70 000000AC B800000000                      mov rax, 0      ; read
     71 000000B1 BF01000000                      mov rdi, 1      ; stdin
-    72 000000B6 488D3425[0B000000]              lea rsi, [.inputchar]
-    73 000000BE BA01000000                      mov rdx, 1      ; # of characters to read
-    74 000000C3 0F05                            syscall
-    75 000000C5 8A0425[0B000000]                mov al, [.inputchar]    ; Char is NL?
-    76 000000CC 3A0425[33000000]                cmp al, byte[NL]
-    77 000000D3 7419                            je  .done               ; NL end
-    78 000000D5 3C61                            cmp al, 97              ; Lower than a?
-    79 000000D7 7CD3                            jl  .readc              ; Ignore
-    80 000000D9 3C7A                            cmp al, 122             ; Higher than z?
-    81 000000DB 7FCF                            jg  .readc              ; Ignore
-    82 000000DD 49FFC6                          inc r14
-    83 000000E0 4D39EE                          cmp r14, r13
-    84 000000E3 77C7                            ja  .readc              ; Buffer max reached, ignore
-    85 000000E5 41880424                        mov byte [r12], al      ; Save the chat in the buffer
-    86 000000E9 49FFC4                          inc r12                 ; Next char address
-    87 000000EC EBBE                            jmp .readc
+    72 000000B6 48BE-                           mov rsi, .inputchar
+    72 000000B8 [0B00000000000000] 
+    73 000000C0 BA01000000                      mov rdx, 1      ; # of characters to read
+    74 000000C5 0F05                            syscall
+    75 000000C7 8A0425[0B000000]                mov al, [.inputchar]    ; Char is NL?
+    76 000000CE 3A0425[33000000]                cmp al, byte[NL]
+    77 000000D5 7419                            je  .done               ; NL end
+    78 000000D7 3C61                            cmp al, 97              ; Lower than a?
+    79 000000D9 7CD1                            jl  .readc              ; Ignore
+    80 000000DB 3C7A                            cmp al, 122             ; Higher than z?
+    81 000000DD 7FCD                            jg  .readc              ; Ignore
+    82 000000DF 49FFC6                          inc r14
+    83 000000E2 4D39EE                          cmp r14, r13
+    84 000000E5 77C5                            ja  .readc              ; Buffer max reached, ignore
+    85 000000E7 41880424                        mov byte [r12], al      ; Save the chat in the buffer
+    86 000000EB 49FFC4                          inc r12                 ; Next char address
+    87 000000EE EBBC                            jmp .readc
     88                                      .done:
-    89 000000EE 49FFC4                          inc r12 ; Manually adding 0 to end the string.
-    90 000000F1 41C6042400                      mov byte [r12], 0
-    91 000000F6 415E                            pop r14
-    92 000000F8 415D                            pop r13
-    93 000000FA 415C                            pop r12
-    94 000000FC C9                      leave
-    95 000000FD C3                      ret
+    89 000000F0 49FFC4                          inc r12 ; Manually adding 0 to end the string.
+    90 000000F3 41C6042400                      mov byte [r12], 0
+    91 000000F8 415E                            pop r14
+    92 000000FA 415D                            pop r13
+    93 000000FC 415C                            pop r12
+    94 000000FE C9                      leave
+    95 000000FF C3                      ret

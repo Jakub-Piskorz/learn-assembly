@@ -1,0 +1,4 @@
+File opened for R/W
+2. Here I am!
+File opened for appending
+3. Alive and kicking!

@@ -1,0 +1,32 @@
+     1                                  ; cmdline.asm
+     2                                  extern printf
+     3                                  section .data
+     4 00000000 54686520636F6D6D61-         msg     db  "The command and arguments: ", 10, 0
+     4 00000009 6E6420616E64206172-
+     4 00000012 67756D656E74733A20-
+     4 0000001B 0A00               
+     5 0000001D 25730A00                    fmt     db  "%s", 10, 0
+     6                                  section .bss
+     7                                  section .text
+     8                                      global main
+     9                                  main:
+    10 00000000 55                      push rbp
+    11 00000001 4889E5                  mov rbp, rsp
+    12 00000004 4989FC                      mov r12, rdi    ; number of arguments
+    13 00000007 4989F5                      mov r13, rsi    ; address of arguments array
+    14                                      ; Print the title
+    15 0000000A 48BF-                       mov rdi, msg
+    15 0000000C [0000000000000000] 
+    16 00000014 E8(00000000)                call printf
+    17 00000019 41BE00000000                mov r14, 0
+    18                                      ; Print the command and arguments
+    19                                      .ploop:         ; loop through the array and print
+    20 0000001F 48BF-                           mov rdi, fmt
+    20 00000021 [1D00000000000000] 
+    21 00000029 4B8B74F500                      mov rsi, qword [r13+r14*8]
+    22 0000002E E8(00000000)                    call printf
+    23 00000033 49FFC6                          inc r14
+    24 00000036 4D39E6                          cmp r14, r12    ; number of arguments reached?
+    25 00000039 7CE4                            jl .ploop
+    26 0000003B C9                      leave
+    27 0000003C C3                      ret

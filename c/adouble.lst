@@ -1,0 +1,16 @@
+     1                                  ; adouble.asm
+     2                                  section .text
+     3                                  global adouble
+     4                                  adouble:
+     5                                        section .text
+     6                                  ; Double the elements
+     7 00000000 4889F1                              mov   rcx, rsi     ; Array length
+     8 00000003 4889FB                              mov   rbx, rdi     ; Address of array
+     9 00000006 41BC00000000                        mov   r12, 0
+    10                                        aloop:
+    11 0000000C F2420F1004E3                        movsd xmm0, qword [rbx+r12*8]      ; take a number
+    12 00000012 F20F58C0                            addsd xmm0,xmm0                    ; double it
+    13 00000016 F2420F1104E3                        movsd qword [rbx+r12*8], xmm0      ; move it to array
+    14 0000001C 49FFC4                              inc r12
+    15 0000001F E2EB                                loop aloop
+    16 00000021 C3                      ret

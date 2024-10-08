@@ -1,0 +1,28 @@
+     1                                  ; sreverse.asm
+     2                                  
+     3                                  section .text
+     4                                  global sreverse
+     5                                  sreverse:
+     6 00000000 55                      push  rbp
+     7 00000001 4889E5                  mov   rbp, rsp
+     8                                  pushing:
+     9 00000004 4889F1                        mov rcx, rsi ; String length
+    10 00000007 4889FB                        mov rbx, rdi ; String address
+    11 0000000A 41BC00000000                  mov r12, 0   ; Length counter
+    12                                        pushLoop:
+    13 00000010 4A8B0423                            mov rax, qword [rbx+r12]	; Load characters
+    14 00000014 50                                  push rax
+    15 00000015 49FFC4                              inc r12
+    16 00000018 E2F6                                loop pushLoop
+    17                                  popping:
+    18 0000001A 4889F1                        mov rcx, rsi
+    19 0000001D 4889FB                        mov rbx, rdi
+    20 00000020 41BC00000000                  mov r12, 0
+    21                                        popLoop:
+    22 00000026 58                                  pop rax
+    23 00000027 42880423                            mov byte [rbx+r12], al  	; Save characters in reverse order
+    24 0000002B 49FFC4                              inc r12
+    25 0000002E E2F6                                loop popLoop
+    26 00000030 4889F8                  mov rax, rdi
+    27 00000033 C9                      leave
+    28 00000034 C3                      ret

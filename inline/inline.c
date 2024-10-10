@@ -22,7 +22,7 @@ int subtract(void)
 	__asm__(
 	".intel_syntax noprefix;"
 	"mov rax,x;"
-	"sub rax,y"                // return value in rax
+	"sub rax,y"	// return value in rax
 	);
 }
 void multiply(void)
@@ -31,6 +31,6 @@ __asm__(
 	".intel_syntax noprefix;"
 	"mov rax,x;"
 	"imul rax,y;"
-	"mov prod,rax"   //no return value, result in prod
+	"mov prod,rax"	//no return value, result in prod
 	);
 }

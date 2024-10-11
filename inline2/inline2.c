@@ -29,4 +29,16 @@ int main(void)
     	:"d"(x), "c"(y)
     );
     printf("Sum (extended inline code) is %d.\n", esum);
+    
+    __asm__(
+    	".intel_syntax noprefix;"
+    	"mov rbx, rdx;"
+    	"imul rbx, rcx;"
+    	"mov rax, rbx;"
+    	:"=a"(eproduct)
+    	:"d"(x), "c"(y)
+    	:"rbx"
+    );
+    printf("product is %d\n", eproduct);
 }
+

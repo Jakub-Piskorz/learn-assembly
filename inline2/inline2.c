@@ -24,7 +24,7 @@ int main(void)
     __asm__(
     	".intel_syntax noprefix;"
     	"mov rax, rdx;"
-    	"add rax, rcx"
+    	"add rax, rcx;"
     	:"=a"(esum)
     	:"d"(x), "c"(y)
     );
@@ -40,5 +40,14 @@ int main(void)
     	:"rbx"
     );
     printf("product is %d\n", eproduct);
+    
+    __asm__(
+    	".intel_syntax noprefix;"
+    	"mov rax, rdx;"
+    	"sub rax, rcx;"
+    	:"=a"(edif)
+    	:"d"(x), "c"(y)
+    );
+    printf("The extended inline asm difference is %d. \n", edif);
 }
 

@@ -36,10 +36,28 @@ main:
     mov rax, 32
     mov rdi, my_string
     mov rcx, length
-    str_loop1: mov byte[rdi], al    ; The simple method
+    str_loop1:
+    mov byte[rdi], al    ; The simple method
     inc rdi
     inc al
     loop str_loop1
+    prnt my_string, length
+    
+    ; Fil the string with ascii 0's
+    prnt str2, 20
+    mov rax, 48
+    mov rdi, my_string
+    mov rcx, length
+    str_loop2: stosb           ; No inc rdi needed anymore
+    loop str_loop2
+    prnt my_string, length
+    
+    ; Fil the string with ascii 0's
+    prnt str3, 19
+    mov rax, 49
+    mov rdi, my_string
+    mov rcx, length
+    rep stosb           ;no inc rdi needed anymore
     prnt my_string, length
     
     leave

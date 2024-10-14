@@ -23,7 +23,7 @@ section .data
     str6        db  10, "reverse copy my_string to other_string:"
 section .bss
     my_string   resb    length
-    oter_string resb    length
+    other_string resb    length
 
 section .text
 global main
@@ -43,7 +43,7 @@ main:
     loop str_loop1
     prnt my_string, length
     
-    ; Fil the string with ascii 0's
+    ; Fill the string with ascii 0's
     prnt str2, 20
     mov rax, 48
     mov rdi, my_string
@@ -52,13 +52,45 @@ main:
     loop str_loop2
     prnt my_string, length
     
-    ; Fil the string with ascii 0's
+    ; Fill the string with ascii 1's
     prnt str3, 19
     mov rax, 49
     mov rdi, my_string
     mov rcx, length
-    rep stosb           ;no inc rdi needed anymore
+    rep stosb           ; No loop needed anymore
     prnt my_string, length
+    
+    ; Fill with characters again
+    prnt str4, 26
+    mov rax, 32
+    mov rdi, my_string
+    mov rcx, length
+    str_loop3: mov byte[rdi], al
+    inc rdi
+    inc al
+    loop str_loop3
+    prnt my_string, length
+    
+    ; Copy my_string to other_string
+    prnt str5, 32
+    mov rsi, my_string
+    mov rdi, other_string
+    mov rcx, length
+    rep movsb
+    prnt other_string, length
+    
+    ; Reverse copy my_string to other_string
+    prnt str6, 40
+    mov rax, 48
+    mov rdi, other_string
+    mov rcx, length
+    rep stosb
+    lea rsi, [my_string+length-4]
+    lea rdi, [other_string+length]
+    mov rcx, 27
+    std
+    rep movsb
+    prnt other_string, length
     
     leave
     ret

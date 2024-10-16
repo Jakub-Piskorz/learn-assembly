@@ -22,14 +22,52 @@ main:
     push rbp
     mov rbp, rsp
     
-    ; Let's print 2 strins
+    ; Let's print 2 strings
+    xor rax, rax
+    mov rdi, str1
+    call printf
+    mov rdi, str2
+    call printf
+    
+    ; Compare 2 strings
     lea rdi, [str1]
     lea rsi, [str2]
     mov rdx, strlen2
     call compare1
     cmp rax, 0
-    jnz not_equal1
+    jnz notequal1
+    ; String are equal, print
+    mov rdi, str21
+    call printf
+    jmp otherversion
     
     mov rsp, rbp
     pop rbp
     ret
+    
+    ; FUNCTIONS
+    
+    ; Compare 2 strings
+    compare1:   mov rcx, rdx
+                cld
+    cmpr:       cmpsb
+                jne notequal1
+                loop cmpr
+                xor rax, rax
+                ret
+    notequal1:  mov rax, strlen2
+                dec rdx
+                sub rax, rcx
+                ret
+                xor rax, rax
+                ret
+                
+    ; Compare 2 strongs again
+    compare2:   mov rcx, rdx
+                cld
+                repe cmpsb
+                je equal2
+                mov rax, strlen2
+                sub rax, rcx
+    equal2:     xor rax, rax
+                ret    

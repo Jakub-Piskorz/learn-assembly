@@ -21,6 +21,17 @@ main:
     lea rdi, [diffstr]
     lea rsi, [rax]
     call printf
+    
+    lea rsi, [str1]
+    lea rdi, [str2]
+    mov rdx, str1len
+    call compare2
+    cmp rax, 0
+    je sameret
+    lea rdi, [diffstr]
+    lea rsi, [rax]
+    call printf
+    
     jmp done
     
     sameret:
@@ -42,8 +53,19 @@ main:
         xor rax, rax
         ret
         
+    ; Compare, but negative first
+    compare2:
+        mov rcx, rdx
+        cld
+        repe cmpsb
+        jne notequal
+        xor rax, rax
+        ret
+    notequal:
+        mov rax, rdx
+        sub rax, rcx
+        ret
+        
     done:
-
-    mov rsp, rbp
-    pop rbp
+    leave
     ret
